@@ -1,0 +1,121 @@
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
+<title>Oral Cancer Prediction</title>
+
+</head>
+
+<body>
+
+<div class="banner">
+
+<div class="navbar">
+
+<h3 class="logo">ORALOnco</h3>
+
+<ul>
+
+<li><a href="OCCAD.html">Predict</a></li>
+
+<li><a href="symptoms_page.html">Symptoms</a></li>
+
+<li><a href="prevention_page.html">Prevention</a></li>
+
+<li><a href="statistics_page.html">Statistics</a></li>
+
+<li><a href="contacts_page.html">Contacts</a></li>
+
+</ul>
+
+</div>
+
+<div class="login">
+
+<h1 id="tit">Oral Cancer Prediction</h1>
+
+<form id="upload-form">
+
+<p id="points">Please input the image of your mouth, to check if traces of cancerous cells are present.</p>
+
+<p id="points">NOTE:
+
+<ul>
+
+<li>Image should be clear.</li>
+
+<li>There should not be any background disturbance.</li>
+
+<li>Image should be in jpg format.</li>
+
+</ul>
+
+</p>
+
+<p id="input">
+
+<input type="file" id="file-input" accept="image/*">
+
+<button type="submit">Upload and Predict</button>
+
+</p>
+
+</form>
+
+<h2 id="result"></h2>
+
+</div>
+
+</div>
+
+<footer>
+
+@2024 Copyright belongs to C20- Retika S & Reshmi R
+<!DOCTYPE html>
+
+</footer>
+
+<script>
+
+document.getElementById('upload-form').addEventListener('submit', async (e) => {
+
+e.preventDefault();
+
+const fileInput = document.getElementById('file-input');
+
+const formData = new FormData();
+
+formData.append('file', fileInput.files[0]);
+
+try {
+
+const response = await fetch('http://127.0.0.1:5000/predict', {
+
+method: 'POST',
+
+body: formData
+
+});
+
+const result = await response.json();
+
+document.getElementById('result').textContent = `Prediction: ${result.prediction}`;
+
+} catch (error) {
+
+document.getElementById('result').textContent = `Error: ${error.message}`;
+
+}
+});
+
+</script>
+
+</body>
+
+</html>
